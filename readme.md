@@ -8,7 +8,7 @@ Neste repositório estão os códigos, arquivos e resultados da análise de dado
 
 ## Sumário 
 1. [**Descrição do projeto**](#1-descrição-do-projeto)
-2.  
+2. [**Extração, limpeza e tratamento dos dados**](#2-extração-limpeza-e-tratamento-dos-dados) 
 
 
 # **1. Descrição do projeto** 
