@@ -15,6 +15,14 @@ Neste repositório estão os códigos, arquivos e resultados da análise de dado
 - **[2.2 - Inspeção e limpeza dos dados](#22---inspeção-e-limpeza-dos-dados)**
 - **[2.3 - Padronização dos dados](#23---padronização-dos-dados)**
 
+**[3. Análise gráfica e relacional dos dados](#3-anc3a1lise-grc3a1fica-e-relacional-dos-dados-1)**
+
+- **[3.1 - Análise correlacional](#31---análise-correlacional)**
+- **[3.2 - Análise dgráfica da evasão de clientes](#32---análise-gráfica-de-evasão-de-clientes)**
+- **[3.3 - Análise da qualidade dos serviços prestados](#33---análise-da-qualidade-dos-serviços-prestados)**
+- **[3.4 - Forma de pagamento](#34---forma-de-pagamento)**
+- **[3.5 - Tipo de contrato](#35---tipo-de-contrato)**
+
 ---
 
 # **1. Descrição do projeto** 
