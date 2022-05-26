@@ -144,7 +144,7 @@ Mais informações e detalhes dos procedimentos realizados pode ser obtidos no [
 
 # **3. Análise gráfica e relacional dos dados**
 
-Realizado o tratamento dos dados e a exportação em um arquivo *csv* mais simples, a próxima etapa é avaliar a relação que as variáveis têm entre si e, principalmente, com a taxa de cancelamento (descrito pela coluna `Churn` ou `Status_Cliente` na sua versão traduzida).
+Realizado o tratamento dos dados e a exportação em um arquivo *csv* mais simples, a próxima etapa é avaliar a relação que as variáveis têm entre si e, principalmente, com a taxa de cancelamento (descrito pela coluna `Churn` ou `Status_Cliente` na sua versão traduzida). Mais detalhes e informações podem ser obtidos no [Notebook 2](https://github.com/goto-95/Challenge_DataScience_AluraVoz/blob/main/Challenge_DS_Alura_Semana02.ipynb).
 
 ## **3.1 - Análise correlacional**
 
