@@ -22,6 +22,8 @@ Neste repositório estão os códigos, arquivos e resultados da análise de dado
 - **[3.3 - Análise da qualidade dos serviços prestados](#33---análise-da-qualidade-dos-serviços-prestados)**
 - **[3.4 - Forma de pagamento](#34---forma-de-pagamento)**
 - **[3.5 - Tipo de contrato](#35---tipo-de-contrato)**
+- **[3.6 - Análise do perfil dos clientes](#36---análise-do-perfil-dos-clientes)**
+
 
 ---
 
@@ -293,4 +295,26 @@ Outro aspecto observado é o tipo de contrato escolhido pelo cliente. Pelo Fig. 
     </figcaption>
 </figure>
 
+## **3.6 - Análise do perfil dos clientes**
+
+### **Influência da idade do cliente**
+
+A Fig. 3.14 mostra que os clientes aposentados possuem uma taxa de evasão de aproximadamente 42%. 
+<figure>
+    <img src = "Imagens-Analise_Grafica/barplot_aposentado.png"  />
+    <figcaption align = 'center'>
+        <b> Figura 3.14: Gráfico de barras para a relação da idade com a taxa de cancelamento.</b>
+    </figcaption>
+</figure>
+
+### **Influência do estado civil do cliente**
+
+De forma complementar, avalia-se a influência do estado civil dos clientes com a taxa de cancelamento. Pela Fig. 3.15, os clientes casados possuem uma taxa de evasão menor que os clientes não casados. Isto pode indicar relação direta com a presença de dependentes no local, como indicado no mapa de correlação ([Seção 3.1](#31---análise-correlacional)).
+
+<figure>
+    <img src = "Imagens-Analise_Grafica/barplot_casado.png"  />
+    <figcaption align = 'center'>
+        <b> Figura 3.15: Gráfico de barras para a relação da idade com a taxa de cancelamento.</b>
+    </figcaption>
+</figure>
 
