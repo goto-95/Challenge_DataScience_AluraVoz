@@ -24,6 +24,9 @@ Neste repositório estão os códigos, arquivos e resultados da análise de dado
 - **[3.5 - Tipo de contrato](#35---tipo-de-contrato)**
 - **[3.6 - Análise do perfil dos clientes](#36---análise-do-perfil-dos-clientes)**
 
+**[4. Construção de modelos de Machine Learning para classificação de clientes](#4-construção-de-modelos-de-machine-learning-para-classificação-de-clientes)**
+
+
 
 ---
 
@@ -318,3 +321,5 @@ De forma complementar, avalia-se a influência do estado civil dos clientes com 
     </figcaption>
 </figure>
 
+
+# **4. Construção de modelos de Machine Learning para classificação de clientes**
