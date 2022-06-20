@@ -424,7 +424,7 @@ LogisticRegression	| 84.1	| 86.5	| 90.7
 SupportVectorMachine | 81.8	| 82.7	| 92.6
 DecisionTreeClassifier | 80.9 | 86.4 | 85.3
 GaussianNB | 80.3 | 90.3 | 79.6
----
+
 
 ## **4.6 - Otimizando o modelo de classificação**
 
