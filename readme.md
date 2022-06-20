@@ -26,6 +26,13 @@ Neste repositório estão os códigos, arquivos e resultados da análise de dado
 
 **[4. Construção de modelos de Machine Learning para classificação de clientes](#4-construção-de-modelos-de-machine-learning-para-classificação-de-clientes)**
 
+- **[4.1 - Ajuste no dataset](#41---ajuste-no-dataset)**
+- **[4.2 - Eliminação das variáveis não-úteis](#42---eliminação-das-variáveis-não-úteis)**
+- **[4.3 - Identificação e eliminação das variáveis altamente correlacionadas](#43---identificação-e-eliminação-das-variáveis-altamente-correlacionadas)**
+- **[4.4 - Análise da proporção de clientes ativos e inativos](#44---análise-da-proporção-de-clientes-ativos-e-inativos)**
+- **[4.5 - Avaliação dos modelos de classificação](#45---avaliação-dos-modelos-de-classificação)**
+- **[4.6 - Otimizando o modelo de classificação](#46---otimizando-o-modelo-de-classificação)**
+
 
 
 ---
@@ -323,3 +330,106 @@ De forma complementar, avalia-se a influência do estado civil dos clientes com 
 
 
 # **4. Construção de modelos de Machine Learning para classificação de clientes**
+Esta última etapa consiste em avaliar diversos modelos de classificação e otimizar o melhor classificador para o problema avaliado. Mais detalhes e procedimentos executados podem ser encontrados no [Notebook 3](https://github.com/goto-95/Challenge_DataScience_AluraVoz/blob/main/Challenge_DS_Alura_Semana03.ipynb).
+
+##  **4.1 - Ajuste no dataset**
+Para evitar quaisquer erro de interpretação dos dados, a variável *Status_Cliente* é invertida de forma que:
+
+- 1 = Cliente ativo
+- 0 = Cliente inativo
+
+## **4.2 - Eliminação das variáveis não-úteis**
+Pelo o que foi observado do arquivo de análise gráfica (*Challenge_DS_Alura_Semana02.ipynb*), é possível ter uma noção de quais variáveis não apresentam influência significativa. Assim, a lista de variáveis que não possuem influência na variável ***Status_Cliente*** são:
+
+1. ***Sexo***: O gênero não apresenta influência alguma com a variável de estudo.
+2. ***Assinatura_Telefone***: O serviço de assinatura de telefone não apresenta influência na taxa de cancelamento dos clientes. 
+3. ***Assinatura_MultiTelefone***: De forma semelhante, o serviço de assinatura multi linha também não paresenta influência na taxa de cancelamento dos clientes.
+
+## **4.3 - Identificação e eliminação das variáveis altamente correlacionadas**
+
+Variáveis altamente correlacionadas podem influenciar negativamente na eficiência no modelo por torna-lo enviesado. Para isto, a tabela de correlação é útil para verificar quais variáveis tem alta correlação (negativa ou positiva) entre si. Assim, observa-se que:
+
+1. ***Valor_Total***: Esta variável possui alta correlação com a variável ***Valor_Mensal***. 
+2. ***Valor_Diario***: Esta variável também possui alta correlação com a variável ***Valor_Mensal***. 
+3. ***Assinatura_Backup***: Esta variável possui alta correlação com a variável ***Assinatura_Suporte_Tecnico***.
+4. ***Assinatura_Seguro_Dispositivo***: Esta variável possui alta correlação com a variável ***Assinatura_Seguro_Online***.
+
+Assim, é possível reduzir estas variáveis em 3 sem perda significativa de informação para o modelo. A saber: ***Valor_Mensal***, ***Assinatura_Suporte*** e ***Assinatura_Segurança***.
+
+## **4.4 - Análise da proporção de clientes ativos e inativos**
+
+Como a variável ***Statuts_Cliente*** tem a proporção de 1:4 das respostas (inativo para ativo), é aconselhável realizar uma verificação das técnicas de balanceamento. Por mais que a proporção da classe de registro minoritária (Clientes inativos) seja relativamente grande, em torno de 26.5%, o modelo ainda pode sofrer certo grau de enviesamento. Para isto, algumas técnicas de balanceamento serão analisadas. Tais técnicas consistem em reduzir a disparidade entre a classe marjoritária (neste caso, cliente ativo) e a minoritária (cliente inativo). Além disto, também é possível realizar tratamento de registros que possam ser considerados ambíguos pelos algoritmos de classificação. Para este projeto, são avaliados as seguintes técnicas:
+
+- **Randon Under Sampler**: A técnica de desbalaceamento RandomSampling é a mais simples e consiste na escolha aleatória de registros da classe marjoritária para o descarte, de forma a aumentar a diminuir a disparidade entre as classes minoritárias e marjoritárias.
+
+- **NearMiss**: Near Miss é um conjunto de técnicas UnderSampling the seleciona os exemplos baseado na distância dos dados marjoritários.
+
+- **Condesed Nearest Neighbour**: O método Condensed Nearest Neighbour (CNN) é uma técnica de de UnderSampling que procura o conjunto de amostras de uma classe que resulta em perda mínima da performance do modelo, referenciado como conjunto minimamente consistente. 
+
+- **One-Sided Selection**: O método One-Sided Selection (OSS) é uma combinação dos métodos Tomek Link e Condensed Nearest Neighbor (CNN). O método OSS então  utiliza o Tomek Link para remover os exemplos ambíguos e depois utiliza o método CNN para remover os exemplos redundantes que estão distantes dos contornos das classes.
+
+- **Neighborhood Cleaning Rule**: O método Neighborhood Cleaning Rule (NCR) consiste na combinação do método ENS para o tratamento de exemplos ambíguos e o método CNN para o tratamento dos exemplos redundantes. Entretanto, diferentemente do método OSS, o método CNR esta mais focado na limpeza dos exemplos que necessariamente na remoção de exemplos redundantes. Portanto, o método NCR está mais focado no tratamento dos exemplos ambíguos.
+
+Dentre as técnicas citadas, a NCR é a que apresentou melhor performance nas avaliações. Isto porque os demais métodos são mais eficientes em proporções de classes minoritárias menores, onde a exclusão de registros da classe marjooritária não afeta significativamente o modelo. Enquanto o NCR apenas elimina os dados redudantes.
+
+## **4.5 - Avaliação dos modelos de classificação**
+
+Como etapa preliminar, uma função será construída compilando os principais algoritmos de Machine Learning para classificação. Para isto, serão utilizados os seguintes algoritmos de classficação supervisionados:
+
+- Logistic Regression:
+
+    O Logistic Regression utiliza a função de Sigmoid para gerar a probabilidade de uma determinada classificação. Este algoritmo é largamente utilizado quando o dataset possui uma classificação binária (0/1, verdadeiro/falso, etc). 
+
+    Para o caso de um dataset multiclasse, o algoritmo utiliza a abordagem um versus restante. É possível configurar isto definindo o parâmetro multi_class como ovr.  Também é possível ajustar o solver (solver), penalidade (penalty) e a distribuição da classe (class_weight). 
+
+- Decision Tree Classifier:
+
+    O algoritmo Desicion Tree Classifier é um algoritmo de classificação onde as características mais importantes da dos dados vão sendo subdivididos em avaliações de verdadeiro ou falso. A partição dos dados permite montar um padrão de classificação por meio das ramificação da árvore, onde um determinado registro pode ser classificado ao ser comparado com a árvore de decisão.
+
+- Random Forest:
+
+    O algoritmo Random Forest é uma combinação de vários Decisions Tree. Este algoritmo utiliza a técnica de sub-amostragem e aplica a média das amostras para melhorar a previsão e contralar o problema de overfiting. 
+
+- k-Neighbor Classifier:
+
+    Este algoritmo utiliza a abordagem de distância entre os registro em um espeço vetorial correspondente. Registros que possuem uma distância média pequena tendem a ter a mesma classificação. Este tipo de algoritmo também é bastante utiliado como sistema de recomendação. 
+
+- Gaussian Nayve-Bayes:
+
+    O algoritmo Gaussian Navye-Bayes é baseado no Teorema de Bayes onde a probabilidade condicional é calculada com base em uma informação dada. A condição de Naive assume que as informações dos registros são independentes (outro motivo para a eliminação das variáveis altamente correlacionadas). A grande vantagem deste algoritmo é que, diferentemente dos demais algoritmos de aprendizado, este não necessita de um grande banco de dados para apresentar uma boa performance nas previsões.
+
+- Support Vector Machine:
+
+    O Support Vector Machine é um algoritmo onde utiliza de um hiper palno para separar os registros em duas classes: negativa e positiva. Este hiper plano é calculado com base na maximização da distância entre os pontos. Com o hiper plano definindo a borda entre as duas classes, o algoritmo realiza a previsão da classificação com base na posição de um determinado registro neste espaço vetorial.
+
+    Este algortimo, assim como Decision Tree e o Random Forest, pode ser utilizado tanto para classificação quanto para regresão.
+
+- Ada Boost:
+
+    O algoritmo Ada Boost é nada mais que um compilado de vários algoritmos de previsão mais simples (e menos eficientes) organizados de forma iterativa de modo a fornecer, no conjunto, um algoritmo de previsão com alta eficiência. A ideia é avaliar uma combinação linear entre os resultados entre vários sub-modelos e otimizar os pesos de tais modelos de forma a fornecer a maior acurácia possível.
+
+- Gradient Boosting Classifier:
+
+    De forma semelhante ao Ada Boost, o Gradient Boosting Classifier configura-se como um compilado de árvores de decisão (Decission Trees). 
+
+Utilizando a técnica NCR de balanceamento, os modelos foram avaliados utilizando Cross-Validation e extraindo a média da precisão, acurácia e recall. A tabela abaixo exibe os resultados obtidos para cada modelo.
+
+Modelo | Acurácia (%) | Precisão (%) | Recall (%)
+-------|----------|----------| -------- 
+KNeighborsClassifier |	86.1 | 88.2	| 91.8
+RandomForestClassifier | 86.1 | 87.7 | 92.4
+GradientBoostingClassifier | 85.5 | 87.5 | 91.8
+AdaBoostClassifier	| 84.6	| 87.8	| 89.8
+LogisticRegression	| 84.1	| 86.5	| 90.7
+SupportVectorMachine | 81.8	| 82.7	| 92.6
+DecisionTreeClassifier | 80.9 | 86.4 | 85.3
+GaussianNB | 80.3 | 90.3 | 79.6
+---
+
+## **4.6 - Otimizando o modelo de classificação**
+
+A última etapa é a otimização hiperparamétrica. Para isto, foi utilizada a função *RandomizedSearchCV* onde a busca em alguns pontos do espaço de otimização é avaliado aleatoriamente. O melhor conjunto de parametros forneceu uma precisão média de 86.6%.  
+
+
+
+
