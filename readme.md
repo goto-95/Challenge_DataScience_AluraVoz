@@ -1,7 +1,7 @@
 # **1º Challenge de Data Science Alura** 
 
 
-Neste repositório estão os códigos, arquivos e resultados da análise de dados da empresa [Alura Voz](https://www.alura.com.br/challenges/data-science). O projeto foi desenvolvido durante os meses de Maio até Julho de 2022.
+Neste repositório estão os códigos, arquivos e resultados da análise de dados da empresa [Alura Voz](https://www.alura.com.br/challenges/data-science). O projeto foi desenvolvido durante os meses de Maio à Junho de 2022.
 
 
 ## Sumário 
